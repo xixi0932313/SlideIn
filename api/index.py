@@ -1,4 +1,4 @@
-# Vercel Serverless 入口：用 Mangum 把 FastAPI 转为 serverless handler
+# Vercel Serverless 入口：直接导出 FastAPI app（Vercel 原生支持 ASGI）
 from __future__ import annotations
 
 import sys
@@ -9,7 +9,6 @@ _root = Path(__file__).resolve().parent.parent
 if str(_root) not in sys.path:
     sys.path.insert(0, str(_root))
 
-from mangum import Mangum
 from web import app
 
-handler = Mangum(app, lifespan="off")
+# Vercel Python 运行时支持直接导出 ASGI app，无需 Mangum
